@@ -14,7 +14,6 @@ def BFS(graph, start, goal, heuristic):
         closed_list.add(node)
         for neighbour, neighbour_cost in graph[node]:
             if neighbour not in closed_list and (cost + neighbour_cost, neighbour) not in open_list:
-                closed_list.add(node)
                 open_list.append((cost+neighbour_cost, neighbour))
 
     return None
