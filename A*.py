@@ -1,5 +1,14 @@
 def h(n):
-    H = {'A': 3, 'B': 4, 'C': 2, 'D': 6, 'G': 0, 'S': 5}
+    H = {
+    'A': 40,
+    'B': 32,
+    'C': 25,
+    'D': 35,
+    'E': 19,
+    'F': 17,
+    'G': 0,
+    'H': 10
+}
     return H[n]
 def a_star_algorithm(graph, start, goal):
 
@@ -45,10 +54,13 @@ def a_star_algorithm(graph, start, goal):
     print('Path does not exist!')
     return None
 graph = {
-    'S': [('A', 1), ('G', 10)],
-    'A': [('B', 2), ('C', 1)],
-    'B': [('D', 5)],
-    'C': [('D', 3),('G', 4)],
-    'D': [('G', 2)]
+    'A': [('B', 11), ('C', 14), ('D',7)],
+    'B': [('A', 11), ('E', 15)],
+    'C': [('A', 14), ('E', 8), ('D',18), ('F',10)],
+    'D': [('A', 7), ('F', 25), ('C',18)],
+    'E': [('B', 15), ('C', 8), ('H',9)],
+    'F': [('G', 20), ('C', 10), ('D',25)],
+    'G': [],
+    'H': [('E',9), ('G',10)]
 }
-a_star_algorithm(graph, 'S', 'G')
+a_star_algorithm(graph, 'A', 'G')
