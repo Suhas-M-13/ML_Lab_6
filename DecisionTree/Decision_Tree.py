@@ -1,26 +1,33 @@
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn import tree
-import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score, classification_report
 
-data = pd.read_csv("weather_forecast.csv")
-data.head()
+# Load the data with the correct delimiter
+df = pd.read_csv("weather_forecast.csv", delimiter = "\t")
 
-desired_rows= 1500
-data = pd.concat([data]*(desired_rows//len(data)),ignore_index=True)
-data.shape
+# One-hot encode categorical variables
+df = pd.get_dummies(df, drop_first=True)
 
-for col in data.columns:
-    data[col] = data[col].map({x : (i+1) for i,x in enumerate(data[col].unique()) })
-data.head()
+print(df.columns)
 
-X = data.drop('Play', axis=1).values
-Y = data['Play'].values
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=32)
+# Correctly identify the target column after get_dummies
+target_column = 'Play_Yes'
 
-classifier = DecisionTreeClassifier(max_depth=3)
-classifier.fit(X_train, Y_train)
-print(tree.export_text(classifier,max_depth=3,feature_names=list(data.columns[:-1]),class_names=['No','Yes']))
-print("Accuracy: ",classifier.score(X_test,Y_test))
+# Separate features and target variable
+x = df.drop(target_column, axis=1)
+y = df[target_column]
+
+# Split the data into training and testing sets
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+# Initialize and train the Decision Tree classifier
+clf_id3 = DecisionTreeClassifier(criterion='entropy', random_state=42)
+clf_id3.fit(x_train, y_train)
+
+# Plot the decision tree
+plt.figure(figsize=(12, 8))
+plot_tree(clf_id3, filled=True, feature_names=x.columns, class_names=["No", "Yes"])
+
+plt.show()
