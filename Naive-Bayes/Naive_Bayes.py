@@ -25,8 +25,3 @@ titanic_data = pd.get_dummies(titanic_data, columns=['Sex', 'Embarked'])
 
 print("\nTitanic dataset Naive Bayes Classifier Results: ")
 evaluate_naive_bayes(titanic_data, 'Survived', [3, 5, 7, 9])
-
-
-# iris_data = load_dataset('iris')
-# print("Iris Dataset Naive Bayes Classifier Results")
-# evaluate_naive_bayes(iris_data, 'species', [3, 5, 7, 9])
