@@ -30,7 +30,7 @@ graph = {
 }
 
 start = 'A'
-goal = 'G'
+goal = 'D'
 
 heuristic = {
     'A': 40,
